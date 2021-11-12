@@ -6,13 +6,13 @@ module.exports = (err,req,res,next) => {
 
     //wrong db id
     if(err.name === "CastError"){
-        const message = "Resource not Found. Invalid"
+        const message = `Resource not Found. Invalid: ${err.path}`;
         err = new ErrorHandler(message, 400);
     }
 
     res.status(err.statusCode).json({
         success:false,
-        message:"thank you",
+        message: err.message,
         error: err.statusCode
     })
 }
